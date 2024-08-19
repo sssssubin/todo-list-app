@@ -1,226 +1,146 @@
-<main class="base-main">
-  <h1 class="main-title">TODO LIST</h1>
-  <div class="main-container">
-    <div class="col-group">
-      <div class="search-bar">
-        <input type="text" placeholder="Search note..." />
-        <button class="search-button">
-          <i class="fas fa-search"
-            ><svg
-              width="21"
-              height="22"
-              viewBox="0 0 21 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.7773 20.184L15.9056 15.312H15.8531C17.3547 13.5415 18.1136 11.2588 17.9709 8.94156C17.8282 6.62433 16.7951 4.45202 15.0876 2.87905C13.3801 1.30608 11.1306 0.454303 8.80958 0.501892C6.48855 0.549481 4.27583 1.49275 2.63427 3.13439C0.992706 4.77602 0.0494786 6.98885 0.00189181 9.30999C-0.045695 11.6311 0.806045 13.8808 2.37894 15.5883C3.95184 17.2958 6.12404 18.329 8.44117 18.4717C10.7583 18.6144 13.0408 17.8555 14.8113 16.3539C14.8113 16.3539 14.8113 16.3914 14.8113 16.4063L19.6831 21.2783C19.7527 21.3485 19.8356 21.4043 19.927 21.4424C20.0183 21.4804 20.1163 21.5 20.2152 21.5C20.3141 21.5 20.4121 21.4804 20.5034 21.4424C20.5948 21.4043 20.6777 21.3485 20.7473 21.2783C20.8242 21.2103 20.8862 21.1272 20.9296 21.0342C20.9731 20.9412 20.9969 20.8402 20.9997 20.7376C21.0025 20.635 20.9842 20.533 20.946 20.4377C20.9077 20.3425 20.8503 20.2561 20.7773 20.184ZM9.00276 16.9685C7.5204 16.9685 6.07133 16.5289 4.83879 15.7053C3.60625 14.8817 2.64561 13.7111 2.07833 12.3415C1.51106 10.9719 1.36263 9.46488 1.65183 8.01094C1.94102 6.55699 2.65485 5.22146 3.70303 4.17322C4.75122 3.12499 6.08669 2.41113 7.54057 2.12192C8.99445 1.83272 10.5014 1.98115 11.871 2.54845C13.2405 3.11575 14.411 4.07644 15.2346 5.30904C16.0581 6.54163 16.4977 7.99077 16.4977 9.4732C16.4977 10.4575 16.3038 11.4322 15.9272 12.3415C15.5505 13.2509 14.9985 14.0772 14.3025 14.7732C13.6065 15.4692 12.7803 16.0213 11.871 16.3979C10.9616 16.7746 9.98701 16.9685 9.00276 16.9685Z"
-                fill="#6C63FF"
-              />
-            </svg>
-          </i>
-        </button>
-      </div>
-      <button class="base-button filter-button primary-button">
-        ALL
-        <i class="fas fa-chevron-down">
-          <svg
-            width="8"
-            height="5"
-            viewBox="0 0 8 5"
+<h1 class="main-title">TODO LIST</h1>
+<div class="main-container">
+  <div class="col-group">
+    <div class="search-bar">
+      <input type="text" placeholder="Search note..." />
+      <button class="search-button">
+        <i class="fas fa-search"
+          ><svg
+            width="21"
+            height="22"
+            viewBox="0 0 21 22"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M4 4L1 1"
-              stroke="#F7F7F7"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M7 1L4 4"
-              stroke="#F7F7F7"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              d="M20.7773 20.184L15.9056 15.312H15.8531C17.3547 13.5415 18.1136 11.2588 17.9709 8.94156C17.8282 6.62433 16.7951 4.45202 15.0876 2.87905C13.3801 1.30608 11.1306 0.454303 8.80958 0.501892C6.48855 0.549481 4.27583 1.49275 2.63427 3.13439C0.992706 4.77602 0.0494786 6.98885 0.00189181 9.30999C-0.045695 11.6311 0.806045 13.8808 2.37894 15.5883C3.95184 17.2958 6.12404 18.329 8.44117 18.4717C10.7583 18.6144 13.0408 17.8555 14.8113 16.3539C14.8113 16.3539 14.8113 16.3914 14.8113 16.4063L19.6831 21.2783C19.7527 21.3485 19.8356 21.4043 19.927 21.4424C20.0183 21.4804 20.1163 21.5 20.2152 21.5C20.3141 21.5 20.4121 21.4804 20.5034 21.4424C20.5948 21.4043 20.6777 21.3485 20.7473 21.2783C20.8242 21.2103 20.8862 21.1272 20.9296 21.0342C20.9731 20.9412 20.9969 20.8402 20.9997 20.7376C21.0025 20.635 20.9842 20.533 20.946 20.4377C20.9077 20.3425 20.8503 20.2561 20.7773 20.184ZM9.00276 16.9685C7.5204 16.9685 6.07133 16.5289 4.83879 15.7053C3.60625 14.8817 2.64561 13.7111 2.07833 12.3415C1.51106 10.9719 1.36263 9.46488 1.65183 8.01094C1.94102 6.55699 2.65485 5.22146 3.70303 4.17322C4.75122 3.12499 6.08669 2.41113 7.54057 2.12192C8.99445 1.83272 10.5014 1.98115 11.871 2.54845C13.2405 3.11575 14.411 4.07644 15.2346 5.30904C16.0581 6.54163 16.4977 7.99077 16.4977 9.4732C16.4977 10.4575 16.3038 11.4322 15.9272 12.3415C15.5505 13.2509 14.9985 14.0772 14.3025 14.7732C13.6065 15.4692 12.7803 16.0213 11.871 16.3979C10.9616 16.7746 9.98701 16.9685 9.00276 16.9685Z"
+              fill="#6C63FF"
             />
           </svg>
         </i>
       </button>
-      <ul class="filter-options"></ul>
     </div>
-
-    <ul class="todo-list">
-      <li class="todo-item">
-        <button class="move-button">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect x="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect x="12" y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-          </svg>
-        </button>
-        <label class="custom-checkbox">
-          <input type="checkbox" />
-          <span></span>
-        </label>
-        <label class="todo-title">NOTE #1</label>
-        <div class="actions">
-          <button class="edit-button ico-button">
-            <i class="fas fa-edit">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.67272 3.99106L1 10.6637V14H4.33636L11.0091 7.32736M7.67272 3.99106L10.0654 1.59837L10.0669 1.59695C10.3962 1.26759 10.5612 1.10261 10.7514 1.04082C10.9189 0.986392 11.0993 0.986392 11.2669 1.04082C11.4569 1.10257 11.6217 1.26735 11.9506 1.59625L13.4018 3.04738C13.7321 3.37769 13.8973 3.54292 13.9592 3.73337C14.0136 3.90088 14.0136 4.08133 13.9592 4.24885C13.8974 4.43916 13.7324 4.60414 13.4025 4.93398L13.4018 4.93468L11.0091 7.32736M7.67272 3.99106L11.0091 7.32736"
-                  stroke="#CDCDCD"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </i>
-          </button>
-          <button class="trash-button ico-button">
-            <i class="fas fa-trash-alt">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3.87414 7.61505C3.80712 6.74386 4.49595 6 5.36971 6H12.63C13.5039 6 14.1927 6.74385 14.1257 7.61505L13.6064 14.365C13.5463 15.1465 12.8946 15.75 12.1108 15.75H5.88894C5.10514 15.75 4.45348 15.1465 4.39336 14.365L3.87414 7.61505Z"
-                  stroke="#CDCDCD"
-                />
-                <path
-                  d="M14.625 3.75H3.375"
-                  stroke="#CDCDCD"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M7.5 2.25C7.5 1.83579 7.83577 1.5 8.25 1.5H9.75C10.1642 1.5 10.5 1.83579 10.5 2.25V3.75H7.5V2.25Z"
-                  stroke="#CDCDCD"
-                />
-                <path
-                  d="M10.5 9V12.75"
-                  stroke="#CDCDCD"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M7.5 9V12.75"
-                  stroke="#CDCDCD"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </i>
-          </button>
-        </div>
-      </li>
-      <li class="todo-item completed">
-        <button class="move-button">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect x="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect x="12" y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-          </svg>
-        </button>
-        <label class="custom-checkbox">
-          <input type="checkbox" checked />
-          <span></span>
-        </label>
-        <label class="todo-title">NOTE #2</label>
-        <div class="actions">
-          <button class="edit-button ico-button">
-            <i class="fas fa-edit">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.67272 3.99106L1 10.6637V14H4.33636L11.0091 7.32736M7.67272 3.99106L10.0654 1.59837L10.0669 1.59695C10.3962 1.26759 10.5612 1.10261 10.7514 1.04082C10.9189 0.986392 11.0993 0.986392 11.2669 1.04082C11.4569 1.10257 11.6217 1.26735 11.9506 1.59625L13.4018 3.04738C13.7321 3.37769 13.8973 3.54292 13.9592 3.73337C14.0136 3.90088 14.0136 4.08133 13.9592 4.24885C13.8974 4.43916 13.7324 4.60414 13.4025 4.93398L13.4018 4.93468L11.0091 7.32736M7.67272 3.99106L11.0091 7.32736"
-                  stroke="#CDCDCD"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </i>
-          </button>
-          <button class="trash-button ico-button">
-            <i class="fas fa-trash-alt">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3.87414 7.61505C3.80712 6.74386 4.49595 6 5.36971 6H12.63C13.5039 6 14.1927 6.74385 14.1257 7.61505L13.6064 14.365C13.5463 15.1465 12.8946 15.75 12.1108 15.75H5.88894C5.10514 15.75 4.45348 15.1465 4.39336 14.365L3.87414 7.61505Z"
-                  stroke="#CDCDCD"
-                />
-                <path
-                  d="M14.625 3.75H3.375"
-                  stroke="#CDCDCD"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M7.5 2.25C7.5 1.83579 7.83577 1.5 8.25 1.5H9.75C10.1642 1.5 10.5 1.83579 10.5 2.25V3.75H7.5V2.25Z"
-                  stroke="#CDCDCD"
-                />
-                <path
-                  d="M10.5 9V12.75"
-                  stroke="#CDCDCD"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M7.5 9V12.75"
-                  stroke="#CDCDCD"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </i>
-          </button>
-        </div>
-      </li>
-    </ul>
-
-    <button id="add-button" class="add-button primary-button">
-      <i class="fas fa-plus">
+    <button class="base-button filter-button primary-button">
+      ALL
+      <i class="fas fa-chevron-down">
         <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
+          width="8"
+          height="5"
+          viewBox="0 0 8 5"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M10.5 22.5C10.5 22.8978 10.658 23.2794 10.9393 23.5607C11.2206 23.842 11.6022 24 12 24C12.3978 24 12.7794 23.842 13.0607 23.5607C13.342 23.2794 13.5 22.8978 13.5 22.5V13.5H22.5C22.8978 13.5 23.2794 13.342 23.5607 13.0607C23.842 12.7794 24 12.3978 24 12C24 11.6022 23.842 11.2206 23.5607 10.9393C23.2794 10.658 22.8978 10.5 22.5 10.5H13.5V1.5C13.5 1.10218 13.342 0.720644 13.0607 0.43934C12.7794 0.158035 12.3978 0 12 0C11.6022 0 11.2206 0.158035 10.9393 0.43934C10.658 0.720644 10.5 1.10218 10.5 1.5V10.5H1.5C1.10218 10.5 0.720644 10.658 0.43934 10.9393C0.158035 11.2206 0 11.6022 0 12C0 12.3978 0.158035 12.7794 0.43934 13.0607C0.720644 13.342 1.10218 13.5 1.5 13.5H10.5V22.5Z"
-            fill="#F7F7F7"
+            d="M4 4L1 1"
+            stroke="#F7F7F7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M7 1L4 4"
+            stroke="#F7F7F7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           />
         </svg>
       </i>
     </button>
+    <ul class="filter-options"></ul>
   </div>
-</main>
+
+  <ul class="todo-list">
+    <% todos.forEach(todo => { %>
+    <li class="todo-item">
+      <button class="move-button">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="8" height="8" rx="4" fill="#D0D5DD" />
+          <rect y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
+          <rect x="12" width="8" height="8" rx="4" fill="#D0D5DD" />
+          <rect x="12" y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
+        </svg>
+      </button>
+      <label class="custom-checkbox">
+        <input
+          type="checkbox"
+          id="<%= todo.id %>"
+          value="<%= todo.isComplete ? 'isComplete' : 'Not completed' %>"
+        />
+        <span></span>
+      </label>
+      <label class="todo-title" for="<%= todo.id %>"><%= todo.title %></label>
+      <div class="actions">
+        <button class="edit-button ico-button" data-id="<%= todo._id %>">
+          <i class="fas fa-edit">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.67272 3.99106L1 10.6637V14H4.33636L11.0091 7.32736M7.67272 3.99106L10.0654 1.59837L10.0669 1.59695C10.3962 1.26759 10.5612 1.10261 10.7514 1.04082C10.9189 0.986392 11.0993 0.986392 11.2669 1.04082C11.4569 1.10257 11.6217 1.26735 11.9506 1.59625L13.4018 3.04738C13.7321 3.37769 13.8973 3.54292 13.9592 3.73337C14.0136 3.90088 14.0136 4.08133 13.9592 4.24885C13.8974 4.43916 13.7324 4.60414 13.4025 4.93398L13.4018 4.93468L11.0091 7.32736M7.67272 3.99106L11.0091 7.32736"
+                stroke="#CDCDCD"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </i>
+        </button>
+        <button class="trash-button ico-button" data-id="<%= todo._id %>">
+          <i class="fas fa-trash-alt">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.87414 7.61505C3.80712 6.74386 4.49595 6 5.36971 6H12.63C13.5039 6 14.1927 6.74385 14.1257 7.61505L13.6064 14.365C13.5463 15.1465 12.8946 15.75 12.1108 15.75H5.88894C5.10514 15.75 4.45348 15.1465 4.39336 14.365L3.87414 7.61505Z"
+                stroke="#CDCDCD"
+              />
+              <path
+                d="M14.625 3.75H3.375"
+                stroke="#CDCDCD"
+                stroke-linecap="round"
+              />
+              <path
+                d="M7.5 2.25C7.5 1.83579 7.83577 1.5 8.25 1.5H9.75C10.1642 1.5 10.5 1.83579 10.5 2.25V3.75H7.5V2.25Z"
+                stroke="#CDCDCD"
+              />
+              <path d="M10.5 9V12.75" stroke="#CDCDCD" stroke-linecap="round" />
+              <path d="M7.5 9V12.75" stroke="#CDCDCD" stroke-linecap="round" />
+            </svg>
+          </i>
+        </button>
+      </div>
+    </li>
+    <% }) %>
+  </ul>
+
+  <button id="add-button" class="add-button primary-button">
+    <i class="fas fa-plus">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M10.5 22.5C10.5 22.8978 10.658 23.2794 10.9393 23.5607C11.2206 23.842 11.6022 24 12 24C12.3978 24 12.7794 23.842 13.0607 23.5607C13.342 23.2794 13.5 22.8978 13.5 22.5V13.5H22.5C22.8978 13.5 23.2794 13.342 23.5607 13.0607C23.842 12.7794 24 12.3978 24 12C24 11.6022 23.842 11.2206 23.5607 10.9393C23.2794 10.658 22.8978 10.5 22.5 10.5H13.5V1.5C13.5 1.10218 13.342 0.720644 13.0607 0.43934C12.7794 0.158035 12.3978 0 12 0C11.6022 0 11.2206 0.158035 10.9393 0.43934C10.658 0.720644 10.5 1.10218 10.5 1.5V10.5H1.5C1.10218 10.5 0.720644 10.658 0.43934 10.9393C0.158035 11.2206 0 11.6022 0 12C0 12.3978 0.158035 12.7794 0.43934 13.0607C0.720644 13.342 1.10218 13.5 1.5 13.5H10.5V22.5Z"
+          fill="#F7F7F7"
+        />
+      </svg>
+    </i>
+  </button>
+</div>

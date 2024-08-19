@@ -11,8 +11,7 @@
 
     <div id="popup-overlay" class="base-popup-overlay hidden"></div>
     <div id="popup" class="base-popup hidden">
-      <h2 id="popup-title" class="popup-title">POPUP</h2>
-      <input type="hidden" id="todo-id" />
+      <h2 id="popup-title" class="popup-title"></h2>
       <div class="row-group">
         <label for="popup-title-input">Title: </label>
         <input
@@ -33,6 +32,7 @@
         <label for="popup-content">Content: </label>
         <textarea id="popup-content" placeholder="Input memo"></textarea>
       </div>
+      <input type="hidden" id="todo-id" />
       <div class="col-group">
         <button id="popup-close" class="base-button secondary-button">
           Cancel
@@ -40,5 +40,7 @@
         <button id="popup-save" class="base-button primary-button">Save</button>
       </div>
     </div>
+
+    <script src="./js/script.js"></script>
   </body>
 </html>
