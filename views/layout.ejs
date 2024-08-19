@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main class="base-main"><%- body %></main>
+
+    <div id="popup-overlay" class="base-popup-overlay hidden"></div>
+    <div id="popup" class="base-popup hidden">
+      <h2 id="popup-title" class="popup-title">POPUP</h2>
+      <input type="hidden" id="todo-id" />
+      <div class="row-group">
+        <label for="popup-title-input">Title: </label>
+        <input
+          type="text"
+          id="popup-title-input"
+          placeholder="Input your todo..."
+        />
+      </div>
+      <div class="row-group">
+        <label for="todo-category">Category: </label>
+        <input
+          type="text"
+          id="todo-category"
+          placeholder="Input your todo category..."
+        />
+      </div>
+      <div class="row-group">
+        <label for="popup-content">Content: </label>
+        <textarea id="popup-content" placeholder="Input memo"></textarea>
+      </div>
+      <div class="col-group">
+        <button id="popup-close" class="base-button secondary-button">
+          Cancel
+        </button>
+        <button id="popup-save" class="base-button primary-button">Save</button>
+      </div>
+    </div>
+  </body>
+</html>

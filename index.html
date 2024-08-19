@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo List</title>
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./public/css/style.css" />
   </head>
   <body>
     <main class="base-main">
@@ -59,7 +59,7 @@
         </div>
 
         <ul class="todo-list">
-          <li>
+          <li class="todo-item">
             <button class="move-button">
               <svg
                 width="20"
@@ -81,8 +81,11 @@
                 />
               </svg>
             </button>
-            <input type="checkbox" />
-            <label>NOTE #1</label>
+            <label class="custom-checkbox">
+              <input type="checkbox" />
+              <span></span>
+            </label>
+            <label class="todo-title">NOTE #1</label>
             <div class="actions">
               <button class="edit-button ico-button">
                 <i class="fas fa-edit">
@@ -139,7 +142,7 @@
               </button>
             </div>
           </li>
-          <li class="completed">
+          <li class="todo-item completed">
             <button class="move-button">
               <svg
                 width="20"
@@ -161,8 +164,11 @@
                 />
               </svg>
             </button>
-            <input type="checkbox" checked />
-            <label><del>NOTE #2</del></label>
+            <label class="custom-checkbox">
+              <input type="checkbox" checked />
+              <span></span>
+            </label>
+            <label class="todo-title">NOTE #2</label>
             <div class="actions">
               <button class="edit-button ico-button">
                 <i class="fas fa-edit">
@@ -221,7 +227,7 @@
           </li>
         </ul>
 
-        <button class="add-button primary-button">
+        <button id="add-button" class="add-button primary-button">
           <i class="fas fa-plus">
             <svg
               width="24"
@@ -244,10 +250,15 @@
 
     <div id="popup-overlay" class="base-popup-overlay hidden"></div>
     <div id="popup" class="base-popup hidden">
-      <h2 class="popup-title">New TODO</h2>
+      <h2 id="popup-title" class="popup-title">POPUP</h2>
+      <input type="hidden" id="todo-id" />
       <div class="row-group">
-        <label for="popup-title">Title: </label>
-        <input type="text" id="popup-title" placeholder="Input your todo..." />
+        <label for="popup-title-input">Title: </label>
+        <input
+          type="text"
+          id="popup-title-input"
+          placeholder="Input your todo..."
+        />
       </div>
       <div class="row-group">
         <label for="todo-category">Category: </label>
