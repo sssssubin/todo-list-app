@@ -30,4 +30,4 @@ app.set("layout", "layout");
 
 app.use("/", indexRouter);
 
-app.listen(PORT, () => console.log(`서버 실행 중: http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`서버 실행 중: http://localhost:${PORT}/todos`));

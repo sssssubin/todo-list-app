@@ -2,7 +2,7 @@
 <div class="main-container">
   <div class="col-group">
     <div class="search-bar">
-      <input type="text" placeholder="Search note..." />
+      <input id="search-input" type="text" placeholder="Search note..." />
       <button class="search-button">
         <i class="fas fa-search"
           ><svg
@@ -48,7 +48,7 @@
     <ul class="filter-options"></ul>
   </div>
 
-  <ul class="todo-list">
+  <ul id="todo-list" class="todo-list">
     <% todos.forEach(todo => { %>
     <li class="todo-item">
       <button class="move-button">

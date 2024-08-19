@@ -111,11 +111,17 @@ input::placeholder {
   border-radius: 2px;
   margin-right: 24px;
   position: relative;
+  cursor: pointer;
 }
 .custom-checkbox input[type=checkbox] {
   position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   opacity: 0;
-  cursor: pointer;
+  pointer-events: none;
+  margin: 0;
 }
 .custom-checkbox input[type=checkbox] + span {
   position: absolute;
@@ -130,6 +136,7 @@ input::placeholder {
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  box-sizing: border-box;
 }
 .custom-checkbox input[type=checkbox]:checked + span {
   border-color: #6c63ff;
