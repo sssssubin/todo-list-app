@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   let currentTodoId = null;
+  let dragSrcEl = null;
 
   // 팝업 열기 함수
   function openPopup(mode, todoData = null) {
@@ -124,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     todos.forEach((todo) => {
       const todoItem = document.createElement("li");
       todoItem.classList.add("todo-item");
+      todoItem.setAttribute("draggable", "true"); // 드래그 가능 설정
       todoItem.innerHTML = `
         <button class="move-button">
           <svg
@@ -143,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <input
             type="checkbox"
             id="${todo._id}"
-            ${todo.isComplete ? 'checked' : ''}
+            ${todo.isComplete ? "checked" : ""}
           />
           <span></span>
         </label>
@@ -196,6 +198,51 @@ document.addEventListener("DOMContentLoaded", () => {
           </button>
         </div>
       `;
+
+      // 드래그 시작
+      todoItem.addEventListener("dragstart", (event) => {
+        dragSrcEl = event.target.closest(".todo-item"); // 드래그 시작된 요소 저장
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/html", todoItem.innerHTML);
+        todoItem.classList.add("dragging");
+        console.log("drag 시작");
+      });
+
+      // 드래그 끝
+      todoItem.addEventListener("dragend", () => {
+        if (dragSrcEl) {
+          dragSrcEl.classList.remove("dragging");
+        }
+        console.log("drag 종료");
+      });
+
+      // 드래그 오버
+      todoItem.addEventListener("dragover", (event) => {
+        event.preventDefault(); // 기본 동작 방지
+        event.dataTransfer.dropEffect = "move";
+        console.log("dragover");
+      });
+
+      // 드롭
+      todoItem.addEventListener("drop", (event) => {
+        event.preventDefault();
+        const dropTarget = event.target.closest(".todo-item");
+        if (dragSrcEl && dropTarget && dragSrcEl !== dropTarget) {
+          // 드래그된 요소와 드롭 타겟의 위치를 결정
+          const boundingRect = dropTarget.getBoundingClientRect();
+          const offsetY = event.clientY - boundingRect.top;
+
+          if (offsetY < boundingRect.height / 2) {
+            // 드롭 타겟의 위쪽에 삽입
+            todoListContainer.insertBefore(dragSrcEl, dropTarget);
+          } else {
+            // 드롭 타겟의 아래쪽에 삽입
+            todoListContainer.insertBefore(dragSrcEl, dropTarget.nextSibling);
+          }
+        }
+        alert("drop");
+      });
+
       todoListContainer.appendChild(todoItem);
     });
   }
@@ -245,9 +292,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 검색 입력에 대한 이벤트 리스너
-  const schForm = document.getElementById("search-input");
-  schForm.addEventListener("input", async () => {
+  // TODO 리스트의 데이터 가져오기
+  async function getTodoListData(searchTerm) {
     try {
       const response = await fetch("/todos", {
         method: "GET",
@@ -262,25 +308,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (contentType && contentType.includes("application/json")) {
           const todos = await response.json();
-          const searchTerm = schForm.value.toLowerCase().trim();
-          const filteredTodos = todos.filter((todo) =>
-            todo.title.toLowerCase().trim().includes(searchTerm)
-          );
 
-          renderTodoList(filteredTodos);
+          if (searchTerm) {
+            const filteredTodos = todos.filter((todo) =>
+              todo.title.toLowerCase().trim().includes(searchTerm)
+            );
+            renderTodoList(filteredTodos);
+          } else {
+            renderTodoList(todos);
+          }
           addTodoEventListeners(); // 새로운 버튼에 대한 이벤트 리스너 추가
         } else {
           console.error("Unexpected content-type:", contentType);
-          alert("서버에서 받은 데이터 형식이 올바르지 않습니다."); 
+          alert("서버에서 받은 데이터 형식이 올바르지 않습니다.");
         }
       } else {
         console.error("Failed to fetch todos:", response.statusText);
-        alert("서버로부터 데이터를 가져오는 데 실패했습니다."); 
+        alert("서버로부터 데이터를 가져오는 데 실패했습니다.");
       }
     } catch (error) {
       console.error("Error fetching todos:", error);
-      alert("할일 목록을 가져오는 중 오류가 발생했습니다."); 
+      alert("할일 목록을 가져오는 중 오류가 발생했습니다.");
     }
+  }
+
+  // 검색 입력에 대한 이벤트 리스너
+  const schForm = document.getElementById("search-input");
+  schForm.addEventListener("input", async () => {
+    const searchTerm = schForm.value.toLowerCase().trim();
+    getTodoListData(searchTerm);
   });
 
   // 추가 버튼 클릭 시
@@ -291,6 +347,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // 팝업에서 Cancel 버튼 클릭 시 팝업 닫기
   document.getElementById("popup-close").addEventListener("click", closePopup);
 
-  // 초기 버튼 리스너 추가
-  addTodoEventListeners();
+  // 초기 TODO 리스트의 데이터 가져오기
+  getTodoListData();
 });

@@ -247,6 +247,10 @@ input {
         padding: 10px;
         font-size: 2rem;
         height: 50px;
+        cursor: pointer;
+        &.dragging {
+          opacity: 0.5; /* 드래그하는 동안 불투명도 조정 */
+        }
         & + .todo-item {
           border-top: 1px solid $primary-color;
         }
@@ -261,7 +265,7 @@ input {
           font-size: 1.8rem;
           font-weight: 700;
           color: $light-color;
-          cursor: pointer;
+          cursor: move;
           margin-right: 10px;
           background: none;
 
@@ -278,6 +282,9 @@ input {
 
         .todo-title {
           flex: 1;
+          height: 100%;
+          display: flex;
+          align-items: center;
         }
 
         &.completed {
