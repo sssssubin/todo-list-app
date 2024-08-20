@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let currentTodoId = null;
   let dragSrcEl = null;
   let todos = []; // 전역 변수로 선언
 
@@ -123,9 +122,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // TODO 리스트 초기화
     todoListContainer.innerHTML = "";
 
-    todos.forEach((todo) => {
+    todos.forEach((todo, idx) => {
+      todo.index = idx;
       const todoItem = document.createElement("li");
       todoItem.classList.add("todo-item");
+      if (todo.isComplete) {
+        todoItem.classList.add("completed");
+      }
+      todoItem.dataset.id = todo._id; // data-id 속성 설정
+
       todoItem.innerHTML = `
       <button class="move-button">
           <svg
@@ -243,6 +248,41 @@ document.addEventListener("DOMContentLoaded", () => {
               openPopup("delete", todo);
             })
             .catch((error) => console.error("Error fetching todo:", error));
+        }
+      });
+
+      // 체크박스 클릭 이벤트
+      todoListContainer.addEventListener("change", async function (event) {
+        if (event.target.type === "checkbox") {
+          const todoId = event.target.id;
+          const isComplete = event.target.checked;
+
+          try {
+            const response = await fetch(`/todos/${todoId}`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ isComplete }),
+            });
+
+            if (response.ok) {
+              // 클라이언트에서 UI 업데이트
+              const updatedTodo = await response.json();
+              const todoItem = document.querySelector(
+                `.todo-item[data-id='${todoId}']`
+              );
+              if (isComplete) {
+                todoItem.classList.add("completed");
+              } else {
+                todoItem.classList.remove("completed");
+              }
+            } else {
+              console.error("Failed to update todo completion status");
+            }
+          } catch (error) {
+            console.error("Error updating todo completion status:", error);
+          }
         }
       });
 

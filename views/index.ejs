@@ -50,7 +50,11 @@
 
   <ul id="todo-list" class="todo-list">
     <% todos.forEach(todo => { %>
-    <li class="todo-item" draggable="true">
+    <li
+      class="todo-item <%= todo.isComplete ? 'completed' : '' %>"
+      data-id="<%= todo._id %>"
+      draggable="true"
+    >
       <button class="move-button">
         <svg
           width="20"
@@ -66,11 +70,8 @@
         </svg>
       </button>
       <label class="custom-checkbox">
-        <input
-          type="checkbox"
-          id="<%= todo.id %>"
-          value="<%= todo.isComplete ? 'isComplete' : 'Not completed' %>"
-        />
+        <input type="checkbox" id="<%= todo._id %>" <%= todo.isComplete ?
+        'checked' : '' %> />
         <span></span>
       </label>
       <label class="todo-title" for="<%= todo.id %>"><%= todo.title %></label>

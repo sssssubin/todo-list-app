@@ -96,6 +96,22 @@ const deleteTodo = async (req, res) => {
   }
 };
 
+// 할일 완료 상태 업데이트
+const patchTodo = async (req, res) => {
+  const { id } = req.params;
+  const { isComplete } = req.body;
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      { isComplete },
+      { new: true }
+    );
+    res.json(updatedTodo);
+  } catch (error) {
+    res.status(400).json({ message: "Bad Request" });
+  }
+};
+
 // 할 일 순서 업데이트하기 (PUT)
 const updateTodoOrder = async (req, res) => {
   const reorderedTodos = req.body;
@@ -136,5 +152,6 @@ module.exports = {
   createTodo,
   editTodo,
   deleteTodo,
+  patchTodo,
   updateTodoOrder,
 };
