@@ -164,6 +164,17 @@ input {
   }
 }
 
+#popup-modify {
+  background-color: $primary-light-color;
+  color: $light-color;
+  border-color: $primary-light-color;
+  &:hover {
+    background-color: $light-color;
+    border: 1px solid $primary-light-color;
+    color: $primary-light-color;
+  }
+}
+
 .ico-button {
   path {
     transition: all 0.3s;
@@ -365,7 +376,7 @@ input {
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 25px;
 
   .popup-title {
     font-size: 2.4rem;
@@ -381,10 +392,13 @@ input {
     textarea {
       width: 100%;
       font-size: 1.6rem;
+      color: $text-color !important;
+      font-weight: 400;
     }
   }
   textarea {
     resize: none;
+    min-height: 150px;
   }
   .col-group {
     margin-top: 65px;

@@ -200,6 +200,17 @@ input::placeholder {
   color: #fff;
 }
 
+#popup-modify {
+  background-color: #c3c1e5;
+  color: #fff;
+  border-color: #c3c1e5;
+}
+#popup-modify:hover {
+  background-color: #fff;
+  border: 1px solid #c3c1e5;
+  color: #c3c1e5;
+}
+
 .ico-button path {
   transition: all 0.3s;
 }
@@ -369,7 +380,7 @@ input::placeholder {
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 25px;
 }
 .base-popup .popup-title {
   font-size: 2.4rem;
@@ -384,9 +395,12 @@ input::placeholder {
 .base-popup .row-group textarea {
   width: 100%;
   font-size: 1.6rem;
+  color: #252525 !important;
+  font-weight: 400;
 }
 .base-popup textarea {
   resize: none;
+  min-height: 150px;
 }
 .base-popup .col-group {
   margin-top: 65px;
