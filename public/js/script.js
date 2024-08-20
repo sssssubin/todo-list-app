@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   let currentTodoId = null;
   let dragSrcEl = null;
+  let todos = []; // 전역 변수로 선언
 
   // 팝업 열기 함수
   function openPopup(mode, todoData = null) {
@@ -125,9 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
     todos.forEach((todo) => {
       const todoItem = document.createElement("li");
       todoItem.classList.add("todo-item");
-      todoItem.setAttribute("draggable", "true"); // 드래그 가능 설정
       todoItem.innerHTML = `
-        <button class="move-button">
+      <button class="move-button">
           <svg
             width="20"
             height="20"
@@ -135,24 +135,24 @@ document.addEventListener("DOMContentLoaded", () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect x="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-            <rect x="12" y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
-          </svg>
-        </button>
-        <label class="custom-checkbox">
+          <rect width="8" height="8" rx="4" fill="#D0D5DD" />
+          <rect y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
+          <rect x="12" width="8" height="8" rx="4" fill="#D0D5DD" />
+          <rect x="12" y="12" width="8" height="8" rx="4" fill="#D0D5DD" />
+        </svg>
+      </button>
+      <label class="custom-checkbox">
           <input
             type="checkbox"
             id="${todo._id}"
             ${todo.isComplete ? "checked" : ""}
           />
-          <span></span>
-        </label>
-        <label class="todo-title" for="${todo._id}">${todo.title}</label>
-        <div class="actions">
-          <button class="edit-button ico-button" data-id="${todo._id}">
-            <i class="fas fa-edit">
+        <span></span>
+      </label>
+      <label class="todo-title" for="${todo._id}">${todo.title}</label>
+      <div class="actions">
+        <button class="edit-button ico-button" data-id="${todo._id}">
+          <i class="fas fa-edit">
               <svg
                 width="18"
                 height="18"
@@ -167,10 +167,10 @@ document.addEventListener("DOMContentLoaded", () => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </i>
-          </button>
-          <button class="trash-button ico-button" data-id="${todo._id}">
-            <i class="fas fa-trash-alt">
+          </i>
+        </button>
+        <button class="trash-button ico-button" data-id="${todo._id}">
+          <i class="fas fa-trash-alt">
               <svg
                 width="18"
                 height="18"
@@ -194,54 +194,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <path d="M10.5 9V12.75" stroke="#CDCDCD" stroke-linecap="round" />
                 <path d="M7.5 9V12.75" stroke="#CDCDCD" stroke-linecap="round" />
               </svg>
-            </i>
-          </button>
-        </div>
-      `;
-
-      // 드래그 시작
-      todoItem.addEventListener("dragstart", (event) => {
-        dragSrcEl = event.target.closest(".todo-item"); // 드래그 시작된 요소 저장
-        event.dataTransfer.effectAllowed = "move";
-        event.dataTransfer.setData("text/html", todoItem.innerHTML);
-        todoItem.classList.add("dragging");
-        console.log("drag 시작");
-      });
-
-      // 드래그 끝
-      todoItem.addEventListener("dragend", () => {
-        if (dragSrcEl) {
-          dragSrcEl.classList.remove("dragging");
-        }
-        console.log("drag 종료");
-      });
-
-      // 드래그 오버
-      todoItem.addEventListener("dragover", (event) => {
-        event.preventDefault(); // 기본 동작 방지
-        event.dataTransfer.dropEffect = "move";
-        console.log("dragover");
-      });
-
-      // 드롭
-      todoItem.addEventListener("drop", (event) => {
-        event.preventDefault();
-        const dropTarget = event.target.closest(".todo-item");
-        if (dragSrcEl && dropTarget && dragSrcEl !== dropTarget) {
-          // 드래그된 요소와 드롭 타겟의 위치를 결정
-          const boundingRect = dropTarget.getBoundingClientRect();
-          const offsetY = event.clientY - boundingRect.top;
-
-          if (offsetY < boundingRect.height / 2) {
-            // 드롭 타겟의 위쪽에 삽입
-            todoListContainer.insertBefore(dragSrcEl, dropTarget);
-          } else {
-            // 드롭 타겟의 아래쪽에 삽입
-            todoListContainer.insertBefore(dragSrcEl, dropTarget.nextSibling);
-          }
-        }
-        alert("drop");
-      });
+          </i>
+        </button>
+      </div>
+    `;
 
       todoListContainer.appendChild(todoItem);
     });
@@ -289,11 +245,98 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => console.error("Error fetching todo:", error));
         }
       });
+
+      // 드래그 가능 설정
+      const dragTodoItems = document.querySelectorAll(".move-button");
+      dragTodoItems.forEach((dragTodoItem) => {
+        dragTodoItem.setAttribute("draggable", "true");
+      });
+
+      // 드래그 시작 이벤트
+      todoListContainer.addEventListener("dragstart", function (event) {
+        if (event.target.closest(".move-button")) {
+          dragSrcEl = event.target.closest(".todo-item"); // 드래그 시작된 요소 저장
+          event.dataTransfer.effectAllowed = "move";
+          event.dataTransfer.setData("text/html", dragSrcEl.innerHTML);
+          dragSrcEl.classList.add("dragging");
+          console.log("drag 시작", event.target); // 여기서 target을 event.target으로 변경
+        }
+      });
+
+      // 드래그 끝 이벤트
+      todoListContainer.addEventListener("dragend", function (event) {
+        if (dragSrcEl) {
+          dragSrcEl.classList.remove("dragging");
+        }
+        console.log("drag 종료");
+      });
+
+      // 드래그 오버 이벤트
+      todoListContainer.addEventListener("dragover", function (event) {
+        event.preventDefault(); // 기본 동작 방지
+        event.dataTransfer.dropEffect = "move";
+        console.log("dragover");
+      });
+
+      // 드롭 이벤트
+      todoListContainer.addEventListener("drop", async function (event) {
+        event.preventDefault();
+
+        const dropTarget = event.target.closest(".todo-item");
+        if (dragSrcEl && dropTarget && dragSrcEl !== dropTarget) {
+          // 드래그된 요소와 드롭 타겟의 위치를 결정
+          const boundingRect = dropTarget.getBoundingClientRect();
+          const offsetY = event.clientY - boundingRect.top;
+
+          if (offsetY < boundingRect.height / 2) {
+            // 드롭 타겟의 위쪽에 삽입
+            todoListContainer.insertBefore(dragSrcEl, dropTarget);
+          } else {
+            // 드롭 타겟의 아래쪽에 삽입
+            todoListContainer.insertBefore(dragSrcEl, dropTarget.nextSibling);
+          }
+
+          // todos 배열을 새롭게 재정렬
+          const reorderedTodos = [];
+          const todoItems = document.querySelectorAll(".todo-item");
+
+          todoItems.forEach((item, index) => {
+            const todoId = item.querySelector("input[type='checkbox']").id;
+            const originalTodo = todos.find((todo) => todo._id === todoId);
+            if (originalTodo) {
+              originalTodo.index = index + 1; // 새로운 순서를 배열에 업데이트
+              reorderedTodos.push(originalTodo);
+            }
+          });
+
+          console.log("Reordered todos:", reorderedTodos); // 디버깅을 위한 콘솔 출력
+
+          // 서버에 업데이트된 순서를 전송
+          try {
+            const response = await fetch("/todos/update-order", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(reorderedTodos),
+            });
+
+            if (response.ok) {
+              console.log("Todo list order updated successfully");
+              // 필요하다면 추가적인 작업 수행
+            } else {
+              console.error("Failed to update todo list order");
+            }
+          } catch (error) {
+            console.error("Error updating todo list order:", error);
+          }
+        }
+      });
     }
   }
 
   // TODO 리스트의 데이터 가져오기
-  async function getTodoListData(searchTerm) {
+  async function getTodoListData(searchTerm = "") {
     try {
       const response = await fetch("/todos", {
         method: "GET",
@@ -307,17 +350,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const contentType = response.headers.get("content-type");
 
         if (contentType && contentType.includes("application/json")) {
-          const todos = await response.json();
+          todos = await response.json(); // 전역 변수에 할 일 목록 할당
 
+          let filteredTodos = todos;
           if (searchTerm) {
-            const filteredTodos = todos.filter((todo) =>
-              todo.title.toLowerCase().trim().includes(searchTerm)
+            // 검색어가 있는 경우 필터링
+            filteredTodos = todos.filter((todo) =>
+              todo.title.toLowerCase().includes(searchTerm)
             );
-            renderTodoList(filteredTodos);
-          } else {
-            renderTodoList(todos);
           }
-          addTodoEventListeners(); // 새로운 버튼에 대한 이벤트 리스너 추가
+
+          renderTodoList(filteredTodos);
+          addTodoEventListeners();
         } else {
           console.error("Unexpected content-type:", contentType);
           alert("서버에서 받은 데이터 형식이 올바르지 않습니다.");

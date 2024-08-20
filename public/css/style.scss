@@ -250,6 +250,7 @@ input {
         cursor: pointer;
         &.dragging {
           opacity: 0.5; /* 드래그하는 동안 불투명도 조정 */
+          background-color: $primary-light-color;
         }
         & + .todo-item {
           border-top: 1px solid $primary-color;

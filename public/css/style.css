@@ -275,6 +275,7 @@ input::placeholder {
 }
 .base-main .main-container .todo-list .todo-item.dragging {
   opacity: 0.5; /* 드래그하는 동안 불투명도 조정 */
+  background-color: #c3c1e5;
 }
 .base-main .main-container .todo-list .todo-item + .todo-item {
   border-top: 1px solid #6c63ff;
