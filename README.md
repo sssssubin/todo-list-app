@@ -1,4 +1,4 @@
-# Todo List 프로젝트 기획서
+# Todo List App
 
 ## 1. 프로젝트 개요
 
