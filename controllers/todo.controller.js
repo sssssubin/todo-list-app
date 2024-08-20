@@ -9,7 +9,7 @@ const handleError = (res, error, statusCode = 400) => {
 // 모든 할일 가져오기(GET)
 const getTodos = async (req, res) => {
   try {
-    const todos = await Todo.find();
+    const todos = await Todo.find().sort({ index: -1 });
     if (todos.length === 0) {
       return res
         .status(404)
@@ -44,7 +44,12 @@ const getTodoById = async (req, res) => {
 const createTodo = async (req, res) => {
   try {
     const { title, category, content } = req.body;
-    const newTodo = new Todo({ title, category, content });
+
+    // 현재 게시물의 개수를 확인하고 index 할당
+    const count = await Todo.countDocuments();
+    const newIndex = count + 1;
+
+    const newTodo = new Todo({ title, category, content, index: newIndex });
     await newTodo.save();
     return res.status(201).json(newTodo);
   } catch (error) {
@@ -78,7 +83,64 @@ const deleteTodo = async (req, res) => {
         .status(404)
         .json({ status: "fail", message: "Todo not found" });
     }
+
+    // 삭제 후 인덱스 재정렬
+    await Todo.updateMany(
+      { index: { $gt: deletedTodo.index } }, // 삭제된 할일의 인덱스보다 큰 인덱스를 가진 문서들
+      { $inc: { index: -1 } } // 인덱스를 1 감소
+    );
+
     return res.status(200).json({ status: "success", message: "Todo deleted" });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+// 할일 완료 상태 업데이트
+const patchTodo = async (req, res) => {
+  const { id } = req.params;
+  const { isComplete } = req.body;
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      { isComplete },
+      { new: true }
+    );
+    res.json(updatedTodo);
+  } catch (error) {
+    res.status(400).json({ message: "Bad Request" });
+  }
+};
+
+// 할 일 순서 업데이트하기 (PUT)
+const updateTodoOrder = async (req, res) => {
+  const reorderedTodos = req.body;
+
+  // 요청 본문이 배열인지 확인
+  if (!Array.isArray(reorderedTodos)) {
+    return res.status(400).json({
+      status: "fail",
+      error: "Expected an array of reordered todos",
+    });
+  }
+
+  try {
+    // 각각의 할 일을 찾아 순서(index)를 업데이트
+    for (const todo of reorderedTodos) {
+      await Todo.findByIdAndUpdate(todo._id, { index: todo.index });
+    }
+
+    // 모든 Todo 항목의 인덱스를 내림차순으로 재정렬
+    const todos = await Todo.find().sort({ index: -1 });
+    todos.forEach((todo, i) => {
+      todo.index = i + 1; // 새로운 인덱스 설정
+      todo.save(); // 인덱스 저장
+    });
+
+    return res.json({
+      status: "success",
+      message: "Order updated successfully",
+    });
   } catch (error) {
     handleError(res, error);
   }
@@ -90,4 +152,6 @@ module.exports = {
   createTodo,
   editTodo,
   deleteTodo,
+  patchTodo,
+  updateTodoOrder,
 };
