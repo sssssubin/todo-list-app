@@ -112,7 +112,6 @@ input::placeholder {
   border-radius: 2px;
   margin-right: 24px;
   position: relative;
-  cursor: pointer;
 }
 .custom-checkbox input[type=checkbox] {
   position: absolute;
@@ -305,6 +304,7 @@ input::placeholder {
   height: 100%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .base-main .main-container .todo-list .todo-item.completed label {
   text-decoration: line-through;
@@ -384,6 +384,9 @@ input::placeholder {
 .base-popup .row-group textarea {
   width: 100%;
   font-size: 1.6rem;
+}
+.base-popup textarea {
+  resize: none;
 }
 .base-popup .col-group {
   margin-top: 65px;

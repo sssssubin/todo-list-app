@@ -5,12 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // 팝업 열기 함수
   function openPopup(mode, todoData = null) {
     const popupElement = document.getElementById("popup");
-    const rowGroupElements = document.querySelectorAll(".row-group");
     const popupTitleElement = document.getElementById("popup-title");
     const titleInputElement = document.getElementById("popup-title-input");
     const categoryInputElement = document.getElementById("todo-category");
     const contentTextareaElement = document.getElementById("popup-content");
     const idInputElement = document.getElementById("todo-id");
+    const saveButton = document.getElementById("popup-save");
+    const cancelButton = document.getElementById("popup-close");
+    const modifyButton = document.getElementById("popup-modify");
+
+    // 초기화: 모든 버튼 숨기기 및 필드 활성화
+    saveButton.style.display = "none";
+    cancelButton.style.display = "none";
+    modifyButton.style.display = "none";
+    titleInputElement.disabled = false;
+    categoryInputElement.disabled = false;
+    contentTextareaElement.disabled = false;
 
     // 제목과 설명 설정
     if (mode === "edit") {
@@ -19,37 +29,19 @@ document.addEventListener("DOMContentLoaded", () => {
         titleInputElement.value = todoData.title || "";
         categoryInputElement.value = todoData.category || "";
         contentTextareaElement.value = todoData.content || "";
-        idInputElement.value = todoData._id || ""; // Ensure _id is available in todoData
+        idInputElement.value = todoData._id || "";
       }
-    } else if (mode === "delete") {
-      popupTitleElement.textContent = "DELETE TODO?";
-      if (todoData) {
-        titleInputElement.value = todoData.title || "";
-        categoryInputElement.value = todoData.category || "";
-        contentTextareaElement.value = todoData.content || "";
-        idInputElement.value = todoData._id || ""; // Ensure _id is available in todoData
-      }
-    } else {
-      popupTitleElement.textContent = "New TODO";
-      titleInputElement.value = "";
-      categoryInputElement.value = "";
-      contentTextareaElement.value = "";
-      idInputElement.value = "";
-    }
+      // 버튼과 필드 설정
+      saveButton.textContent = "Save";
+      saveButton.style.display = "block";
+      cancelButton.style.display = "block";
+      modifyButton.style.display = "none";
+      saveButton.onclick = async () => {
+        const title = titleInputElement.value;
+        const category = categoryInputElement.value;
+        const content = contentTextareaElement.value;
+        const id = idInputElement.value;
 
-    // 팝업 표시
-    document.getElementById("popup-overlay").classList.remove("hidden");
-    document.getElementById("popup").classList.remove("hidden");
-
-    // Save 버튼 클릭 시 실행할 콜백 설정
-    const saveButton = document.getElementById("popup-save");
-    saveButton.onclick = async () => {
-      const title = titleInputElement.value;
-      const category = categoryInputElement.value;
-      const content = contentTextareaElement.value;
-      const id = idInputElement.value;
-
-      if (mode === "edit") {
         try {
           const response = await fetch(`/todos/edit/${id}`, {
             method: "PUT",
@@ -67,7 +59,28 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
           console.error("Error updating todo:", error);
         }
-      } else if (mode === "delete") {
+
+        closePopup();
+      };
+    } else if (mode === "delete") {
+      popupTitleElement.textContent = "DELETE TODO?";
+      if (todoData) {
+        titleInputElement.value = todoData.title || "";
+        categoryInputElement.value = todoData.category || "";
+        contentTextareaElement.value = todoData.content || "";
+        idInputElement.value = todoData._id || ""; // Ensure _id is available in todoData
+      }
+      // 버튼과 필드 설정
+      titleInputElement.disabled = true;
+      categoryInputElement.disabled = true;
+      contentTextareaElement.disabled = true;
+      saveButton.style.display = "block";
+      saveButton.textContent = "Delete";
+      modifyButton.style.display = "block"; // 수정 버튼 표시
+      cancelButton.style.display = "block"; // 취소 버튼 표시
+      saveButton.onclick = async () => {
+        const id = idInputElement.value;
+
         const response = await fetch(`/todos/delete/${id}`, {
           method: "DELETE",
           headers: {
@@ -78,9 +91,52 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           location.reload(); // 페이지 새로고침
         } else {
-          console.error("Failed to update todo");
+          console.error("Failed to delete todo");
         }
-      } else {
+
+        closePopup();
+      };
+      modifyButton.onclick = () => {
+        closePopup(); // 현재 팝업 닫기
+        openPopup("edit", todoData); // 수정 팝업 열기
+      };
+    } else if (mode === "view") {
+      popupTitleElement.textContent = "View TODO";
+      if (todoData) {
+        titleInputElement.value = todoData.title || "";
+        categoryInputElement.value = todoData.category || "";
+        contentTextareaElement.value = todoData.content || "";
+        idInputElement.value = todoData._id || ""; // Ensure _id is available in todoData
+      }
+      // 버튼과 필드 설정
+      titleInputElement.disabled = true;
+      categoryInputElement.disabled = true;
+      contentTextareaElement.disabled = true;
+      saveButton.style.display = "none";
+      modifyButton.style.display = "block"; // 수정 버튼 표시
+      cancelButton.style.display = "block"; // 취소 버튼 표시
+      modifyButton.onclick = () => {
+        closePopup(); // 현재 팝업 닫기
+        openPopup("edit", todoData); // 수정 팝업 열기
+      };
+    } else {
+      popupTitleElement.textContent = "New TODO";
+      titleInputElement.value = "";
+      categoryInputElement.value = "";
+      contentTextareaElement.value = "";
+      idInputElement.value = "";
+      // 버튼과 필드 설정
+      titleInputElement.disabled = false;
+      categoryInputElement.disabled = false;
+      contentTextareaElement.disabled = false;
+      saveButton.style.display = "block";
+      modifyButton.style.display = "none";
+      cancelButton.style.display = "block";
+      saveButton.onclick = async () => {
+        const title = titleInputElement.value;
+        const category = categoryInputElement.value;
+        const content = contentTextareaElement.value;
+
         try {
           const response = await fetch("/todos/new", {
             method: "POST",
@@ -98,10 +154,14 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
           console.error("Error creating todo:", error);
         }
-      }
 
-      closePopup();
-    };
+        closePopup();
+      };
+    }
+
+    // 팝업 표시
+    document.getElementById("popup-overlay").classList.remove("hidden");
+    popupElement.classList.remove("hidden");
   }
 
   // 팝업 닫기 함수
@@ -204,6 +264,11 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
+      // TODO 항목 클릭 이벤트 추가(뷰페이지)
+      todoItem.querySelector(".todo-title").addEventListener("click", () => {
+        openPopup("view", todo);
+      });
+
       todoListContainer.appendChild(todoItem);
     });
   }
@@ -227,6 +292,23 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then((todo) => {
               openPopup("edit", todo);
+            })
+            .catch((error) => console.error("Error fetching todo:", error));
+        }
+
+        // 상세 보기 버튼 클릭 이벤트
+        if (event.target.closest(".view-button")) {
+          const id = event.target.closest(".view-button").dataset.id;
+
+          fetch(`/todos/${id}`)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((todo) => {
+              openPopup("view", todo);
             })
             .catch((error) => console.error("Error fetching todo:", error));
         }
@@ -363,7 +445,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
               console.log("Todo list order updated successfully");
-              // 필요하다면 추가적인 작업 수행
             } else {
               console.error("Failed to update todo list order");
             }
