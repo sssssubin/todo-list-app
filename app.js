@@ -10,11 +10,13 @@ const indexRouter = require("./routes/index");
 const app = express();
 dotenv.config();
 
+const mongoURI =
+  "mongodb+srv://bstnqls96:<db_password>@cluster0.ve75o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 const PORT = process.env.PORT || 8000;
-const MONGOURL = process.env.MONGO_URL;
 
 mongoose
-  .connect(MONGOURL)
+  .connect(mongoURI)
   .then(() => console.log("몽구스 연결 성공"))
   .catch((err) => console.log("몽구스 연결 실패", err));
 
@@ -30,4 +32,6 @@ app.set("layout", "layout");
 
 app.use("/", indexRouter);
 
-app.listen(PORT, () => console.log(`서버 실행 중: http://localhost:${PORT}/todos`));
+app.listen(PORT, () =>
+  console.log(`서버 실행 중: http://localhost:${PORT}/todos`)
+);
