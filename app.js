@@ -10,15 +10,19 @@ const indexRouter = require("./routes/index");
 const app = express();
 dotenv.config();
 
-const mongoURI =
-  "mongodb+srv://bstnqls96:<db_password>@cluster0.ve75o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
+const mongoURI = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 8000;
 
 mongoose
   .connect(mongoURI)
   .then(() => console.log("몽구스 연결 성공"))
   .catch((err) => console.log("몽구스 연결 실패", err));
+
+// 로깅 미들웨어
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
