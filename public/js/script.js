@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
           />
         <span></span>
       </label>
-      <label class="todo-title" for="${todo._id}">${todo.title}</label>
+      <label class="todo-title" for="${todo._id}">${todo.task}</label>
       <div class="actions">
         <button class="edit-button ico-button" data-id="${todo._id}">
           <i class="fas fa-edit">
@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (searchTerm) {
             // 검색어로 필터링
             filteredTodos = todos.filter((todo) =>
-              todo.title.toLowerCase().includes(searchTerm)
+              todo.task.toLowerCase().includes(searchTerm)
             );
           }
 
