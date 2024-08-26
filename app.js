@@ -10,8 +10,8 @@ const indexRouter = require("./routes/index");
 const app = express();
 dotenv.config();
 
-const PORT = process.env.PORT || 8000;
-const MONGOURL = process.env.MONGODB_URI;
+// const PORT = process.env.PORT || 8000;
+const MONGOURL = process.env.MONGO_URL;
 
 mongoose
   .connect(MONGOURL)
