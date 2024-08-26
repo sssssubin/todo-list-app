@@ -18,7 +18,8 @@ const getTodos = async (req, res) => {
     if (req.headers.accept && req.headers.accept.includes("application/json")) {
       return res.json(todos);
     } else {
-      return res.render("index", { todos });
+      // return res.render("index", { todos });
+      return res.render("index", { todos }); // EJS 템플릿에 todos 변수를 전달합니다.
     }
   } catch (error) {
     handleError(res, error);

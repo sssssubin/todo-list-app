@@ -11,7 +11,7 @@ const app = express();
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
-const MONGOURL = process.env.MONGODB_URI;
+const MONGOURL = process.env.MONGO_URL;
 
 mongoose
   .connect(MONGOURL)
@@ -29,7 +29,6 @@ app.set("views", path.join(__dirname, "views"));
 app.set("layout", "layout");
 
 app.use("/", indexRouter);
+// app.listen(PORT, () => console.log(`서버 실행 중: http://localhost:${PORT}`));
 
-app.listen(PORT, () =>
-  console.log(`서버 실행 중: http://localhost:${PORT}/todos`)
-);
+module.exports = app; // Vercel에서 올바르게 서버를 인식하도록 app을 export합니다.
