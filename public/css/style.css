@@ -150,8 +150,6 @@ html {
   font-family: "Kanit", sans-serif;
   font-weight: 400;
   font-size: 62.5%;
-  line-height: normal;
-  letter-spacing: normal;
 }
 
 body {
@@ -165,18 +163,7 @@ i {
   justify-content: center;
 }
 
-textarea {
-  flex: 1;
-  padding: 8px 16px;
-  border: 2px solid #c3c1e5;
-  border-radius: 4px;
-  outline: none;
-  transition: all 0.3s;
-  font-size: 16px;
-  height: 100%;
-  box-sizing: border-box;
-}
-
+textarea,
 input[type=text] {
   flex: 1;
   padding: 8px 16px;
@@ -185,40 +172,32 @@ input[type=text] {
   outline: none;
   transition: all 0.3s;
   font-size: 16px;
-  height: 100%;
   box-sizing: border-box;
 }
+textarea:focus,
 input[type=text]:focus {
   border-color: #6c63ff;
 }
-input::-moz-placeholder {
+textarea::-moz-placeholder, input[type=text]::-moz-placeholder {
   color: #c3c1e5;
 }
-input::placeholder {
+textarea::placeholder,
+input[type=text]::placeholder {
   color: #c3c1e5;
 }
 
 .custom-checkbox {
   width: 26px;
   height: 26px;
-  border-radius: 2px;
   margin-right: 24px;
   position: relative;
 }
 .custom-checkbox input[type=checkbox] {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   opacity: 0;
-  pointer-events: none;
-  margin: 0;
+  cursor: pointer;
 }
 .custom-checkbox input[type=checkbox] + span {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 26px;
   height: 26px;
   border-radius: 5px;
@@ -228,11 +207,9 @@ input::placeholder {
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
-  box-sizing: border-box;
 }
 .custom-checkbox input[type=checkbox]:checked + span {
   border-color: #6c63ff;
-  position: relative;
 }
 .custom-checkbox input[type=checkbox]:checked + span::after {
   content: "";
@@ -259,7 +236,7 @@ input::placeholder {
   align-items: center;
 }
 
-.base-button {
+.base-button, .secondary-button, .primary-button {
   height: 100%;
   display: flex;
   align-items: center;
@@ -275,11 +252,9 @@ input::placeholder {
 .primary-button {
   background-color: #6c63ff;
   color: #fff;
-  border-color: #6c63ff;
 }
 .primary-button:hover {
   background-color: #5a3fff;
-  border-color: #5a3fff;
 }
 
 .secondary-button {
@@ -290,17 +265,6 @@ input::placeholder {
 .secondary-button:hover {
   background-color: #6c63ff;
   color: #fff;
-}
-
-#popup-modify {
-  background-color: #c3c1e5;
-  color: #fff;
-  border-color: #c3c1e5;
-}
-#popup-modify:hover {
-  background-color: #fff;
-  border: 1px solid #c3c1e5;
-  color: #c3c1e5;
 }
 
 .ico-button path {
@@ -315,7 +279,7 @@ input::placeholder {
   max-width: 750px;
   min-width: 320px;
   margin: 0 auto;
-  padding: 220px 18px 90px 18px;
+  padding: 90px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -324,66 +288,21 @@ input::placeholder {
 }
 .base-main .main-title {
   width: 100%;
-  max-width: 750px;
-  min-width: 320px;
   font-size: 3.4rem;
   font-weight: 500;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #fff;
-  padding: 30px 30px;
-  z-index: 99;
-}
-.base-main .main-title::after {
-  content: "";
-  display: block;
-  background: #c3c1e5;
-  position: absolute;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: -1;
 }
 .base-main .main-container {
   width: 100%;
 }
 .base-main .main-container .col-group {
-  width: 100%;
-  max-width: 750px;
-  min-width: 320px;
   gap: 20px;
-  position: fixed;
-  top: 94px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0 30px 50px 30px;
-  background: #fff;
-  z-index: 99;
-}
-.base-main .main-container .col-group::after {
-  content: "";
-  display: block;
-  background: #c3c1e5;
-  position: absolute;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: -1;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
+  margin-bottom: 40px;
 }
 .base-main .main-container .search-bar {
   flex: 1;
   display: flex;
   align-items: center;
   position: relative;
-  height: 100%;
 }
 .base-main .main-container .search-bar .search-button {
   position: absolute;
@@ -391,12 +310,11 @@ input::placeholder {
   top: 0;
   width: 21px;
   height: 100%;
+  background: none;
+  border: none;
   padding: 0;
-  background-color: unset;
-  border: unset;
 }
 .base-main .main-container .search-bar .search-button i {
-  display: block;
   width: 100%;
   height: 21px;
 }
@@ -417,11 +335,6 @@ input::placeholder {
   padding: 10px;
   font-size: 2rem;
   height: 50px;
-  cursor: pointer;
-}
-.base-main .main-container .todo-list .todo-item.dragging {
-  opacity: 0.5; /* 드래그하는 동안 불투명도 조정 */
-  background-color: #c3c1e5;
 }
 .base-main .main-container .todo-list .todo-item + .todo-item {
   border-top: 1px solid #6c63ff;
@@ -432,13 +345,13 @@ input::placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 10px;
+  background: none;
   border: none;
   font-size: 1.8rem;
   font-weight: 700;
   color: #fff;
-  cursor: move;
-  margin-right: 10px;
-  background: none;
+  cursor: pointer;
 }
 .base-main .main-container .todo-list .todo-item .move-button rect {
   transition: fill 0.3s;
@@ -448,21 +361,16 @@ input::placeholder {
 }
 .base-main .main-container .todo-list .todo-item .todo-title {
   flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
 }
 .base-main .main-container .todo-list .todo-item.completed label {
   text-decoration: line-through;
   color: #aaa;
 }
 .base-main .main-container .todo-list .todo-item .actions {
-  height: 100%;
   display: flex;
 }
 .base-main .main-container .todo-list .todo-item .actions button {
-  background-color: transparent;
+  background: none;
   border: none;
   color: #ccc;
   cursor: pointer;
@@ -482,8 +390,8 @@ input::placeholder {
   bottom: 20px;
   right: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  height: auto;
   border: 1px solid #6c63ff;
+  height: auto;
 }
 .base-main .main-container .add-button i {
   font-size: 1.6rem;
@@ -498,6 +406,9 @@ input::placeholder {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 500;
 }
+.base-popup-overlay.hidden {
+  display: none;
+}
 
 .base-popup {
   position: fixed;
@@ -508,15 +419,13 @@ input::placeholder {
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  width: 100%;
   max-width: 750px;
   min-width: 320px;
-  margin: 0 auto;
   padding: 25px 40px;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 15px;
 }
 .base-popup .popup-title {
   font-size: 2.4rem;
@@ -531,19 +440,11 @@ input::placeholder {
 .base-popup .row-group textarea {
   width: 100%;
   font-size: 1.6rem;
-  color: #252525 !important;
-  font-weight: 400;
-}
-.base-popup textarea {
-  resize: none;
-  min-height: 150px;
 }
 .base-popup .col-group {
   margin-top: 65px;
   justify-content: space-between;
 }
-
-.base-popup-overlay.hidden,
 .base-popup.hidden {
   display: none;
 }/*# sourceMappingURL=style.css.map */

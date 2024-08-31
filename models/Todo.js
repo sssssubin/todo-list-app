@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 const todoSchema = Schema(
   {
     title: { type: String, required: true },
-    content: { type: String, required: true },
-    category: { type: String, required: true },
-    index: { type: Number, required: true },
-    isComplete: { type: Boolean, required: true, default: false },
+    content: { type: String },
+    category: { type: String },
+    index: { type: Number },
+    isComplete: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
