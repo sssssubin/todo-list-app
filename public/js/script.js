@@ -193,8 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // TODO 리스트 초기화
     todoListContainer.innerHTML = "";
 
-    todos.forEach((todo, idx) => {
-      todo.index = idx;
+    todos.forEach((todo) => {
       const todoItem = document.createElement("li");
       todoItem.classList.add("todo-item");
       if (todo.isComplete) {
@@ -226,7 +225,9 @@ document.addEventListener("DOMContentLoaded", () => {
           />
         <span></span>
       </label>
-      <label class="todo-title" for="${todo._id}">${todo.title}</label>
+      <label class="todo-title" for="${todo._id}"><span class="badge">${
+        todo.index
+      }</span>${todo.title}</label>
       <div class="actions">
         <button class="edit-button ico-button" data-id="${todo._id}">
           <i class="fas fa-edit">
@@ -429,20 +430,27 @@ document.addEventListener("DOMContentLoaded", () => {
             todoListContainer.insertBefore(dragSrcEl, dropTarget.nextSibling);
           }
 
-          // todos 배열을 새롭게 재정렬
+          // 내림차순으로 todos 배열을 새롭게 재정렬
           const reorderedTodos = [];
-          const todoItems = document.querySelectorAll(".todo-item");
+          const todoItems = Array.from(document.querySelectorAll(".todo-item"));
 
-          todoItems.forEach((item, index) => {
+          // todoItems를 역순으로 탐색하여 인덱스를 설정합니다.
+          todoItems.reverse().forEach((item, index) => {
             const todoId = item.querySelector("input[type='checkbox']").id;
             const originalTodo = todos.find((todo) => todo._id === todoId);
             if (originalTodo) {
-              originalTodo.index = index + 1; // 새로운 순서를 배열에 업데이트
+              originalTodo.index = index; // 새로운 순서를 배열에 업데이트 (내림차순)
               reorderedTodos.push(originalTodo);
+
+              // Badge 업데이트
+              const badgeElement = item.querySelector(".badge");
+              if (badgeElement) {
+                badgeElement.textContent = index; // 배지에 새로운 인덱스 설정
+              }
             }
           });
 
-          console.log("재정렬된 todos:", reorderedTodos); // 디버깅용 콘솔 출력
+          console.log("내림차순으로 재정렬된 todos:", reorderedTodos);
 
           // 서버에 업데이트된 순서를 전송
           try {
@@ -457,10 +465,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
               console.log("Todo 리스트 순서 업데이트 성공");
             } else {
-              console.error("Failed to update todo list order"); // 오류 메시지 출력
+              console.error("Failed to update todo list order");
             }
           } catch (error) {
-            console.error("Error updating todo list order:", error); // 오류 메시지 출력
+            console.error("Error updating todo list order:", error);
           }
         }
       });

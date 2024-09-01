@@ -10,12 +10,12 @@ $text-color: #252525;
 $light-color: #fff;
 $hover-color: #ccc;
 $completed-color: #aaa;
-$button-border-radius: 5px;
+$button-border-radius: 0.5rem;
 
 html {
   font-family: "Kanit", sans-serif;
   font-weight: 400;
-  font-size: 62.5%; // 10px 기준으로 폰트 크기 설정
+  font-size: 62.5%; // 1rem 기준으로 폰트 크기 설정
 }
 
 body {
@@ -33,12 +33,12 @@ i {
 textarea,
 input[type="text"] {
   flex: 1;
-  padding: 8px 16px;
-  border: 2px solid $primary-light-color;
-  border-radius: 4px;
+  padding: 0.8rem 1.6rem;
+  border: 0.2rem solid $primary-light-color;
+  border-radius: 0.4rem;
   outline: none;
   transition: all 0.3s;
-  font-size: 16px;
+  font-size: 1.6rem;
   box-sizing: border-box;
 
   &:focus {
@@ -52,9 +52,9 @@ input[type="text"] {
 
 // 커스텀 체크박스 스타일
 .custom-checkbox {
-  width: 26px;
-  height: 26px;
-  margin-right: 24px;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-right: 2.4rem;
   position: relative;
 
   input[type="checkbox"] {
@@ -63,10 +63,10 @@ input[type="text"] {
     cursor: pointer;
 
     & + span {
-      width: 26px;
-      height: 26px;
+      width: 2.6rem;
+      height: 2.6rem;
       border-radius: $button-border-radius;
-      border: 2px solid $primary-light-color;
+      border: 0.2rem solid $primary-light-color;
       background-color: $light-color;
       display: flex;
       align-items: center;
@@ -80,12 +80,12 @@ input[type="text"] {
       &::after {
         content: "";
         display: block;
-        width: 5px;
-        height: 10px;
+        width: 0.5rem;
+        height: 1rem;
         border: solid $primary-color;
-        border-width: 0 3px 3px 0;
+        border-width: 0 0.3rem 0.3rem 0;
         transform: rotate(45deg);
-        margin-bottom: 4px;
+        margin-bottom: 0.4rem;
       }
     }
   }
@@ -94,7 +94,7 @@ input[type="text"] {
 // 레이아웃 그룹 스타일
 .col-group {
   width: 100%;
-  height: 38px;
+  height: 3.8rem;
   display: flex;
   align-items: center;
 }
@@ -111,7 +111,7 @@ input[type="text"] {
   height: 100%;
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 1rem;
   border-radius: $button-border-radius;
   border: none;
   transition: background-color 0.3s;
@@ -134,7 +134,7 @@ input[type="text"] {
   @extend .base-button;
   background-color: $light-color;
   color: $primary-color;
-  border: 1px solid $primary-color;
+  border: 0.1rem solid $primary-color;
 
   &:hover {
     background-color: $primary-color;
@@ -156,14 +156,14 @@ input[type="text"] {
 // 메인 스타일
 .base-main {
   width: 100%;
-  max-width: 750px;
-  min-width: 320px;
+  max-width: 75rem;
+  min-width: 32rem;
   margin: 0 auto;
-  padding: 90px 18px;
+  padding: 9rem 1.8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 60px;
+  gap: 6rem;
   box-sizing: border-box;
 
   .main-title {
@@ -176,8 +176,8 @@ input[type="text"] {
     width: 100%;
 
     .col-group {
-      gap: 20px;
-      margin-bottom: 40px;
+      gap: 2rem;
+      margin-bottom: 4rem;
     }
 
     .search-bar {
@@ -188,9 +188,9 @@ input[type="text"] {
 
       .search-button {
         position: absolute;
-        right: 16px;
+        right: 1.6rem;
         top: 0;
-        width: 21px;
+        width: 2.1rem;
         height: 100%;
         background: none;
         border: none;
@@ -198,7 +198,7 @@ input[type="text"] {
 
         i {
           width: 100%;
-          height: 21px;
+          height: 2.1rem;
           svg {
             width: 100%;
             height: 100%;
@@ -208,7 +208,7 @@ input[type="text"] {
     }
 
     .filter-button {
-      width: 86px;
+      width: 8.6rem;
       justify-content: space-between;
     }
 
@@ -221,21 +221,21 @@ input[type="text"] {
       .todo-item {
         display: flex;
         align-items: center;
-        padding: 10px;
+        padding: 1rem;
         font-size: 2rem;
-        height: 50px;
+        height: 5rem;
 
         & + .todo-item {
-          border-top: 1px solid $primary-color;
+          border-top: 0.1rem solid $primary-color;
         }
 
         .move-button {
-          width: 50px;
+          width: 5rem;
           height: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-right: 10px;
+          margin-right: 1rem;
           background: none;
           border: none;
           font-size: 1.8rem;
@@ -270,14 +270,14 @@ input[type="text"] {
             color: $hover-color;
             cursor: pointer;
             transition: color 0.3s;
-            width: 50px;
+            width: 5rem;
 
             &:hover {
               color: $primary-color;
             }
 
             i {
-              font-size: 16px;
+              font-size: 1.6rem;
             }
           }
         }
@@ -286,13 +286,14 @@ input[type="text"] {
 
     // 할 일 추가 버튼
     .add-button {
-      padding: 15px;
+      padding: 1.5rem;
       border-radius: 50%;
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      border: 1px solid $primary-color;
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+      border: 0.1rem solid $primary-color;
       height: auto;
 
       i {
@@ -323,16 +324,16 @@ input[type="text"] {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 0.1rem solid #ccc;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  max-width: 750px;
-  min-width: 320px;
-  padding: 25px 40px;
-  border-radius: 16px;
+  max-width: 75rem;
+  min-width: 32rem;
+  padding: 20.5rem 4rem;
+  border-radius: 1.6rem;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10.5rem;
 
   .popup-title {
     font-size: 2.4rem;
@@ -341,7 +342,7 @@ input[type="text"] {
   }
 
   .row-group {
-    gap: 10px;
+    gap: 1rem;
 
     label,
     input,
@@ -352,11 +353,24 @@ input[type="text"] {
   }
 
   .col-group {
-    margin-top: 65px;
+    margin-top: 60.5rem;
     justify-content: space-between;
   }
 
   &.hidden {
     display: none;
   }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 3rem;
+  text-align: center;
+  color: $light-color;
+  background-color: $primary-light-color;
 }

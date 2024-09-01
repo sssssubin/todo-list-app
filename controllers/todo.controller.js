@@ -115,35 +115,19 @@ const patchTodo = async (req, res) => {
 
 // 할 일 순서 업데이트하기 (PUT)
 const updateTodoOrder = async (req, res) => {
-  const reorderedTodos = req.body;
-
-  // 요청 본문이 배열인지 확인
-  if (!Array.isArray(reorderedTodos)) {
-    return res.status(400).json({
-      status: "fail",
-      error: "Expected an array of reordered todos",
-    });
-  }
-
   try {
-    // 각각의 할 일을 찾아 순서(index)를 업데이트
-    for (const todo of reorderedTodos) {
-      await Todo.findByIdAndUpdate(todo._id, { index: todo.index });
-    }
+    const updatedTodos = req.body; // 클라이언트에서 전송된 todo 리스트 (이미 내림차순)
 
-    // 모든 Todo 항목의 인덱스를 내림차순으로 재정렬
-    const todos = await Todo.find().sort({ index: -1 });
-    todos.forEach((todo, i) => {
-      todo.index = i + 1; // 새로운 인덱스 설정
-      todo.save(); // 인덱스 저장
+    // 모든 Todo 문서를 업데이트
+    const updatePromises = updatedTodos.map((todo) => {
+      return Todo.findByIdAndUpdate(todo._id, { index: todo.index });
     });
 
-    return res.json({
-      status: "success",
-      message: "Order updated successfully",
-    });
+    await Promise.all(updatePromises); // 모든 업데이트 완료될 때까지 대기
+    res.status(200).json({ message: "Order updated successfully" });
   } catch (error) {
-    handleError(res, error);
+    console.error("Error updating todo order:", error);
+    res.status(500).json({ message: "Failed to update order" });
   }
 };
 
