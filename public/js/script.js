@@ -225,9 +225,9 @@ document.addEventListener("DOMContentLoaded", () => {
           />
         <span></span>
       </label>
-      <label class="todo-title" for="${todo._id}"><span class="badge">${
-        todo.index
-      }</span>${todo.title}</label>
+      <label class="todo-title"><span class="badge">${todo.index}</span>${
+        todo.title
+      }</label>
       <div class="actions">
         <button class="edit-button ico-button" data-id="${todo._id}">
           <i class="fas fa-edit">
